@@ -15,18 +15,6 @@ use App\Entity\Page;
 class Parse
 {
     /**
-     * @var string
-     */
-    protected $pageUrl;
-    /**
-     * @var Images
-     */
-    protected $images;
-    /**
-     * @var Hrefs
-     */
-    protected $hrefs;
-    /**
      * @var int
      */
     protected $depth;
@@ -42,31 +30,35 @@ class Parse
      */
     public function __construct(Page $page, int $depth)
     {
-        $this->pageUrl = $page->url;
-        $this->images = new Images($page);
-        $this->hrefs = new Hrefs($page);
         $this->depth = $depth;
         $this->pagesArray = [];
-        $this->parse();
+        $this->parse($page);
     }
 
     /**
      * Parse all pages and create new Entities
+     * @param Page $page
      */
-    protected function parse(): void
+    protected function parse(Page $page): void
     {
-        $this->pagesArray[$this->pageUrl]['images'] = $this->images->images;
+        $images = new Images();
+        $page->setTags($images);
 
-        if (!empty($this->hrefs->hrefs)) {
+        $hrefs = new Hrefs();
+        $page->setTags($hrefs);
+
+        $this->pagesArray[$page->url]['images'] = $page->tags['images'];
+
+        if (!empty($page->tags['hrefs'])) {
 
             $i = 0;
-            foreach ($this->hrefs->hrefs as $key => $href) {
-                $innerPageEntity = new Page($href);
+            foreach ($page->tags['hrefs'] as $key => $href) {
+                $innerPage = new Page($href);
+                $innerPageImages = new Images();
+                $innerPage->setTags($innerPageImages);
 
-                $innerPageImageEntity = new Images($innerPageEntity);
-
-                if (!empty($innerPageImageEntity->images)) {
-                    $this->pagesArray[$innerPageEntity->url]['images'] = $innerPageImageEntity->images;
+                if (!empty($innerPage->tags['images'])) {
+                    $this->pagesArray[$innerPage->url]['images'] = $innerPage->tags['images'];
                 }
 
                 $i++;

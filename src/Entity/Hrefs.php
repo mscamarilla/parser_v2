@@ -14,35 +14,17 @@ use App\Interfaces\ItemInterface;
 class Hrefs implements ItemInterface
 {
     /**
-     * @var Page
-     */
-    public $page;
-    /**
-     * @var array
-     */
-    public $hrefs;
-
-    /**
-     * Hrefs constructor.
-     * @param Page $page
-     */
-    public function __construct(Page $page)
-    {
-        $this->page = $page;
-        $this->getTags();
-    }
-
-    /**
      * Gets all links on the page
+     * @param Page $page
      * @return array
      */
-    public function getTags(): array
+    public function getTags(Page $page): array
     {
 
         $raw_links = [];
         $links = [];
 
-        $tags = $this->page->page->getElementsByTagName('a');
+        $tags = $page->page->getElementsByTagName('a');
 
         foreach ($tags as $tag) {
             $raw_links[] = $tag->getAttribute('href');
@@ -61,7 +43,7 @@ class Hrefs implements ItemInterface
                 }
             }
         }
-        return $this->hrefs = $links;
+        return $links;
 
     }
 

@@ -3,6 +3,7 @@
 
 namespace App\Interfaces;
 
+use App\Entity\Page;
 
 /**
  * Interface ItemInterface
@@ -11,7 +12,8 @@ namespace App\Interfaces;
 interface ItemInterface
 {
     /**
+     * @param Page $page
      * @return array
      */
-    public function getTags(): array;
+    public function getTags(Page $page): array;
 }
