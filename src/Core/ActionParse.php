@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core;
+namespace App\Core;
 
 /**
  * Class ActionParse

@@ -8,7 +8,7 @@ $options = getopt('a:u:d::');
 //composer Vendor loading
 require_once('vendor/autoload.php');
 
-use Core\ActionDefinition;
+use App\Core\ActionDefinition;
 
 try{
     ActionDefinition::load($options);

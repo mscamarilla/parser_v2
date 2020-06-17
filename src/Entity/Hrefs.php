@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Entity;
+namespace App\Entity;
 
-use Core\ActionDefinition;
-use InterfaceNameSpace\ItemInterface;
+use App\Core\ActionDefinition;
+use App\Interfaces\ItemInterface;
 
 
 /**

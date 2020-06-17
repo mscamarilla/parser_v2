@@ -1,7 +1,7 @@
 <?php
 
 
-namespace InterfaceNameSpace;
+namespace App\Interfaces;
 
 
 /**

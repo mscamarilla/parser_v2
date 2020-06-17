@@ -1,9 +1,9 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
 
-use Entity\Page;
+use App\Entity\Page;
 use Exception;
 
 /**
@@ -24,15 +24,15 @@ class ActionDefinition
 
         } else {
 
-            if (!class_exists('\Core\Action' . ucfirst($options['a']))) {
-                throw new Exception('Class \Core\Action\\' . ucfirst($options['a']) . ' not found!');
+            if (!class_exists('App\Core\Action' . ucfirst($options['a']))) {
+                throw new Exception('Class App\Core\Action\\' . ucfirst($options['a']) . ' not found!');
             }
 
             if (empty($options['u'])) {
                 throw new Exception('Option -u is required! Use "-a help" for details');
             }
 
-            $action_name = '\Core\Action' . ucfirst($options['a']);
+            $action_name = 'App\Core\Action' . ucfirst($options['a']);
 
             $cleanUrl = self::cleanUrl($options['u']);
             //defines domain and scheme for the first time to use them on inner pages

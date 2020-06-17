@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Core;
+namespace App\Core;
 
 
-use Entity\Hrefs;
-use Entity\Images;
-use Entity\Page;
+use App\Entity\Hrefs;
+use App\Entity\Images;
+use App\Entity\Page;
 
 /**
  * Class Parse
