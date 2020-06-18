@@ -46,8 +46,21 @@ class ActionDefinition
                 $depth = 5;
             }
 
+            //t - tag to parse
+            if (!empty($options['t'])) {
+                $tag = $options['t'];
+                if (!class_exists('App\Entity\\' . ucfirst($tag))) {
+                    throw new Exception('Class App\Entity\\' . ucfirst($tag) . ' not found!');
+                }
+                $tagClassName = 'App\Entity\\' . $tag;
+            } else {
+                $tag = 'Images';
+                $tagClassName = 'App\Entity\\' . $tag;
+            }
+            $tags = new $tagClassName();
+
             $page = new Page($url);
-            $action = new $action_name($page, $depth);
+            $action = new $action_name($page, $tags, $depth);
 
 
         }
@@ -100,7 +113,6 @@ class ActionDefinition
     /**
      * Defines DOMAIN and SCHEME
      * @param string $url
-     * @param string $scheme
      * @throws Exception
      */
     static function defineGlobals(string $url): void
