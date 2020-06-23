@@ -14,6 +14,19 @@ use App\Interfaces\ItemInterface;
 class Images implements ItemInterface
 {
     /**
+     * @var string
+     */
+    private $tagName;
+
+    /**
+     * Images constructor.
+     */
+    public function __construct()
+    {
+        $this->setTagName();
+    }
+
+    /**
      * Gets all image on the page
      * @param Page $page
      * @return array
@@ -30,5 +43,27 @@ class Images implements ItemInterface
         return $images;
 
     }
+
+    /**
+     * Get tag name
+     * @return string
+     */
+    public function getTagName(): string
+    {
+        return $this->tagName;
+    }
+
+
+    /**
+     * Set tag  name
+     */
+    public function setTagName(): void
+    {
+        $path = explode('\\', get_class($this));
+        $tagName = strtolower(array_pop($path));
+
+        $this->tagName = $tagName;
+    }
+
 
 }

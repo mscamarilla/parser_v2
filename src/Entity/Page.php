@@ -23,6 +23,10 @@ class Page
     public $page;
 
     /**
+     * @var array
+     */
+    public $innerPages;
+    /**
      * @var
      */
     public $tags;
@@ -40,8 +44,19 @@ class Page
         libxml_use_internal_errors($internalErrors);
 
         $this->url = $url;
+        $this->setInnerPages();
 
     }
+
+    /**
+     * Set InnerPages
+     */
+    public function setInnerPages(): void
+    {
+        $hrefs = new Hrefs();
+        $this->innerPages = $hrefs->getTags($this);
+    }
+
 
     /**
      * Sets tags
@@ -49,8 +64,7 @@ class Page
      */
     public function setTags(ItemInterface $obj)
     {
-        $path = explode('\\', get_class($obj));
-        $class =  strtolower(array_pop($path));
+        $class = $obj->getTagName();
 
         $this->tags[$class] = $obj->getTags($this);
     }

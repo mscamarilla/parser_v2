@@ -3,8 +3,6 @@
 
 namespace App\Core;
 
-
-use App\Entity\Hrefs;
 use App\Entity\Page;
 use App\Interfaces\ItemInterface;
 
@@ -43,20 +41,15 @@ class Parse
      */
     protected function parse(Page $page, ItemInterface $tags): void
     {
-        $hrefs = new Hrefs();
-        $page->setTags($hrefs);
-
         $page->setTags($tags);
-
-        $path = explode('\\', get_class($tags));
-        $tagName = strtolower(array_pop($path));
+        $tagName = $tags->getTagName();
 
         $this->pagesArray[$page->url][$tagName] = $page->tags[$tagName];
 
-        if (!empty($page->tags['hrefs'])) {
+        if (!empty($page->innerPages)) {
 
             $i = 0;
-            foreach ($page->tags['hrefs'] as $key => $href) {
+            foreach ($page->innerPages as $key => $href) {
                 $innerPage = new Page($href);
                 $innerPageImages = $tags;
                 $innerPage->setTags($innerPageImages);
