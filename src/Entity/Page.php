@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use App\Core\Parse;
 use DOMDocument;
 use App\Interfaces\ItemInterface;
 
@@ -54,7 +55,8 @@ class Page
     public function setInnerPages(): void
     {
         $hrefs = new Hrefs();
-        $this->innerPages = $hrefs->getTags($this);
+        $innerPages = new Parse($this, $hrefs,0);
+        $this->innerPages = $innerPages->pagesArray[$this->url][$hrefs->getTagName()];
     }
 
 

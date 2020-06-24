@@ -19,7 +19,7 @@ class Parse
     /**
      * @var array
      */
-    protected $pagesArray;
+    public $pagesArray;
 
     /**
      * Parse constructor.
